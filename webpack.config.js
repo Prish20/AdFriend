@@ -149,6 +149,23 @@ const options = {
 };
 
 if (env.NODE_ENV === 'development') {
+  options.devServer = {
+    hot: true,
+    liveReload: false,
+    allowedHosts: 'all',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    client: {
+      webSocketTransport: 'ws',
+      webSocketURL: {
+        hostname: 'localhost',
+        protocol: 'wss',
+      },
+    },
+    webSocketServer: 'ws',
+  };
+
   options.devtool = 'cheap-module-source-map';
 } else {
   options.optimization = {

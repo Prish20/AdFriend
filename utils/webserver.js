@@ -17,7 +17,7 @@ for (var entryName in config.entry) {
   if (excludeEntriesToHotReload.indexOf(entryName) === -1) {
     config.entry[entryName] = [
       'webpack/hot/dev-server',
-      `webpack-dev-server/client?hot=true&hostname=localhost&port=${env.PORT}`,
+      `webpack-dev-server/client?protocol=wss&hot=true&hostname=localhost&port=${env.PORT}`,
     ].concat(config.entry[entryName]);
   }
 }
@@ -29,12 +29,16 @@ var compiler = webpack(config);
 
 var server = new WebpackDevServer(
   {
-    hot: true, // ✅ Enable Hot Module Replacement
+    hot: true,
     liveReload: false,
     client: {
-      webSocketTransport: 'sockjs',
+      webSocketTransport: 'ws',
+      webSocketURL: {
+        hostname: 'localhost',
+        protocol: 'wss',
+      },
     },
-    webSocketServer: 'sockjs',
+    webSocketServer: 'ws',
     host: 'localhost',
     port: env.PORT,
     static: {
