@@ -49,7 +49,7 @@ const options = {
   },
   output: {
     filename: '[name].bundle.js',
-    path: path.join(__dirname, 'build'), // ✅ Prevents nesting build/build
+    path: path.join(__dirname, 'adfriend'),
     clean: true,
     publicPath: ASSET_PATH,
   },
@@ -99,22 +99,22 @@ const options = {
       patterns: [
         {
           from: 'src/manifest.json',
-          to: path.resolve(__dirname, 'build'),
+          to: path.resolve(__dirname, 'adfriend'),
           force: true,
         },
         {
           from: 'src/pages/Content/content.styles.css',
-          to: path.resolve(__dirname, 'build'),
+          to: path.resolve(__dirname, 'adfriend'),
           force: true,
         },
         {
-          from: 'src/assets/img/icon-128.png',
-          to: path.resolve(__dirname, 'build'),
+          from: 'src/assets/img/icon-96.png',
+          to: path.resolve(__dirname, 'adfriend'),
           force: true,
         },
         {
-          from: 'src/assets/img/icon-34.png',
-          to: path.resolve(__dirname, 'build'),
+          from: 'src/assets/img/icon-64.png',
+          to: path.resolve(__dirname, 'adfriend'),
           force: true,
         },
       ],

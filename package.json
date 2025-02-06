@@ -1,11 +1,10 @@
 {
-    "name": "chrome-extension-boilerplate-react",
-    "version": "6.0.0",
-    "description": "A chrome extension boilerplate built with React 19, Webpack 5.97.1, and Webpack Dev Server 5.2.0",
-    "license": "MIT",
+    "name": "adfriend",
+    "version": "1.0.0",
+    "description": "AdFriend is a Chrome extension that intercepts and replaces ad elements on web pages with customizable, positive content widgets. Instead of traditional ads, users will see interactive spaces featuring motivational quotes, activity reminders, or other uplifting content.",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Prish20/chrome-extension-boilerplate-react.git"
+        "url": "https://github.com/Prish20/AdFriend.git"
     },
     "scripts": {
         "build": "node utils/build.js",

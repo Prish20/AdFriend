@@ -1,21 +1,27 @@
 {
     "manifest_version": 3,
-    "name": "Chrome Extension with React & Webpack",
-    "version": "6.0.0",
-    "description": "A chrome extension boilerplate built with React 19, Webpack 5.97.1, and Webpack Dev Server 5.2.0",
+    "name": "adfriend",
+    "version": "1.0.0",
+    "description": "AdFriend is a Chrome extension that intercepts and replaces ad elements on web pages with customizable, positive content widgets. Instead of traditional ads, users will see interactive spaces featuring motivational quotes, activity reminders, or other uplifting content.",
     "options_page": "options.html",
     "background": {
         "service_worker": "background.bundle.js"
     },
+    "permissions": [
+        "storage",
+        "activeTab",
+        "scripting"
+    ],
     "action": {
         "default_popup": "popup.html",
-        "default_icon": "icon-34.png"
+        "default_icon": "icon-64.png"
     },
     "chrome_url_overrides": {
         "newtab": "newtab.html"
     },
     "icons": {
-        "128": "icon-128.png"
+        "64": "icon-64.png",
+        "96": "icon-96.png"
     },
     "content_scripts": [
         {
@@ -37,8 +43,8 @@
         {
             "resources": [
                 "content.styles.css",
-                "icon-128.png",
-                "icon-34.png"
+                "icon-96.png",
+                "icon-64.png"
             ],
             "matches": []
         }

@@ -9,7 +9,7 @@ const Popup = () => {
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
                 <p>
-                    Edit <code>Hello</code> and save to reload.
+                    Edit <code>Hello Welcome to Adfriend</code> and save to reload.
                 </p>
                 <a
                     className="App-link"
@@ -20,6 +20,7 @@ const Popup = () => {
                     Learn React!
                 </a>
             </header>
+            <Greetings />
         </div>
     );
 };
