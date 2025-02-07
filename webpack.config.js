@@ -108,13 +108,8 @@ const options = {
           force: true,
         },
         {
-          from: 'src/assets/img/icon-96.png',
-          to: path.resolve(__dirname, 'adfriend'),
-          force: true,
-        },
-        {
-          from: 'src/assets/img/icon-64.png',
-          to: path.resolve(__dirname, 'adfriend'),
+          from: 'src/assets/images/',
+          to: path.resolve(__dirname, 'adfriend/images'),
           force: true,
         },
         {
