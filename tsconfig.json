@@ -18,6 +18,6 @@
     "jsx": "react-jsx",
     "noEmit": true
   },
-  "include": ["src"],
+  "include": ["src", "adfriend/src/assets/filters/index.ts"],
   "exclude": ["build", "node_modules"]
 }

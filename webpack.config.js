@@ -117,6 +117,11 @@ const options = {
           to: path.resolve(__dirname, 'adfriend'),
           force: true,
         },
+        {
+          from: 'src/assets/filters',
+          to: path.resolve(__dirname, 'adfriend/filters'),
+          force: true,
+        },
       ],
     }),
     new HtmlWebpackPlugin({

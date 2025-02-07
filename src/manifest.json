@@ -1,52 +1,47 @@
 {
-    "manifest_version": 3,
-    "name": "adfriend",
-    "version": "1.0.0",
-    "description": "AdFriend is a Chrome extension that intercepts and replaces ad elements on web pages with customizable, positive content widgets. Instead of traditional ads, users will see interactive spaces featuring motivational quotes, activity reminders, or other uplifting content.",
-    "options_page": "options.html",
-    "background": {
-        "service_worker": "background.bundle.js"
-    },
-    "permissions": [
-        "storage",
-        "activeTab",
-        "scripting"
-    ],
-    "action": {
-        "default_popup": "popup.html",
-        "default_icon": "icon-64.png"
-    },
-    "chrome_url_overrides": {
-        "newtab": "newtab.html"
-    },
-    "icons": {
-        "64": "icon-64.png",
-        "96": "icon-96.png"
-    },
-    "content_scripts": [
-        {
-            "matches": [
-                "http://*/*",
-                "https://*/*",
-                "<all_urls>"
-            ],
-            "js": [
-                "contentScript.bundle.js"
-            ],
-            "css": [
-                "content.styles.css"
-            ]
-        }
-    ],
-    "devtools_page": "devtools.html",
-    "web_accessible_resources": [
-        {
-            "resources": [
-                "content.styles.css",
-                "icon-96.png",
-                "icon-64.png"
-            ],
-            "matches": []
-        }
-    ]
+  "manifest_version": 3,
+  "name": "AdFriend",
+  "version": "1.0.0",
+  "description": "AdFriend is a Chrome extension that intercepts and replaces ad elements on web pages with customizable, positive content widgets.",
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "background.bundle.js"
+  },
+  "permissions": ["storage", "activeTab", "scripting", "tabs"],
+  "host_permissions": ["https://*/*", "http://*/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon-64.png"
+  },
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "icons": {
+    "64": "icon-64.png",
+    "96": "icon-96.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*", "<all_urls>"],
+      "js": ["contentScript.bundle.js"],
+      "css": ["content.styles.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "devtools_page": "devtools.html",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'",
+    "content_scripts": "script-src 'self' 'unsafe-inline' https://trustedsource.com; object-src 'none'"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "content.styles.css",
+        "icon-96.png",
+        "icon-64.png",
+        "filters/*"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

@@ -1,9 +1,13 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 
-import "./index.css";
-import Newtab from "./Newtab";
+import './index.css';
+import Newtab from './Newtab';
 
-const container = document.getElementById("app-container") as HTMLElement;
+const container = document.getElementById('app-container') as HTMLElement;
 const root = createRoot(container);
-root.render(<React.StrictMode><Newtab /></React.StrictMode>);
+root.render(
+  <React.StrictMode>
+    <Newtab />
+  </React.StrictMode>
+);
