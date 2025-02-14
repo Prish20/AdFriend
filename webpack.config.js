@@ -34,34 +34,41 @@ if (fileSystem.existsSync(secretsPath)) {
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 const options = {
-  mode: process.env.NODE_ENV || 'development',
+  mode: isDevelopment ? 'development' : 'production',
   entry: {
-    newtab: path.join(__dirname, 'src', 'pages', 'Newtab', 'index.tsx'),
-    options: path.join(__dirname, 'src', 'pages', 'Options', 'index.tsx'),
-    popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.tsx'),
-    background: path.join(__dirname, 'src', 'pages', 'Background', 'index.ts'),
-    contentScript: path.join(__dirname, 'src', 'pages', 'Content', 'index.ts'),
-    devtools: path.join(__dirname, 'src', 'pages', 'Devtools', 'index.ts'),
-    panel: path.join(__dirname, 'src', 'pages', 'Panel', 'index.tsx'),
+    newtab: path.join(__dirname, 'src/pages/Newtab/index.tsx'),
+    options: path.join(__dirname, 'src/pages/Options/index.tsx'),
+    popup: path.join(__dirname, 'src/pages/Popup/index.tsx'),
+    background: path.join(__dirname, 'src/pages/Background/index.ts'),
+    contentScript: path.join(__dirname, 'src/pages/Content/index.ts'),
+    devtools: path.join(__dirname, 'src/pages/Devtools/index.ts'),
+    panel: path.join(__dirname, 'src/pages/Panel/index.tsx'),
   },
   chromeExtensionBoilerplate: {
     notHotReload: ['background', 'contentScript', 'devtools'],
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: 'js/[name].bundle.js', // Place JS files inside /js/
     path: path.join(__dirname, 'adfriend'),
     clean: true,
     publicPath: ASSET_PATH,
   },
+  devtool: isDevelopment ? 'cheap-module-source-map' : false, // Optimize builds
   module: {
     rules: [
       {
         test: /\.(css|scss)$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
+        generator: {
+          filename: 'assets/styles/[name][ext]', // Store styles in /assets/styles/
+        },
       },
       {
         test: new RegExp(`.(${fileExtensions.join('|')})$`),
         type: 'asset/resource',
+        generator: {
+          filename: 'assets/images/[name][ext]', // Store images in /assets/images/
+        },
         exclude: /node_modules/,
       },
       {
@@ -97,51 +104,40 @@ const options = {
     new webpack.EnvironmentPlugin(['NODE_ENV']),
     new CopyWebpackPlugin({
       patterns: [
+        { from: 'src/manifest.json', to: 'manifest.json', force: true },
+        { from: 'src/assets/images/', to: 'assets/images/', force: true },
+        { from: 'src/assets/filters/', to: 'assets/filters/', force: true },
         {
-          from: 'src/manifest.json',
-          to: path.resolve(__dirname, 'adfriend'),
+          from: 'src/assets/styles/',
+          to: 'assets/styles/',
           force: true,
-        },
-        {
-          from: 'src/pages/Content/content.styles.css',
-          to: path.resolve(__dirname, 'adfriend'),
-          force: true,
-        },
-        {
-          from: 'src/assets/images/',
-          to: path.resolve(__dirname, 'adfriend/images'),
-          force: true,
-        },
-        {
-          from: 'src/assets/filters',
-          to: path.resolve(__dirname, 'adfriend/filters'),
-          force: true,
-        },
+          noErrorOnMissing: true,
+        }, // Avoids errors if styles folder is missing
       ],
     }),
     new HtmlWebpackPlugin({
       template: 'src/pages/Newtab/index.html',
-      filename: 'newtab.html',
+      filename: 'pages/newtab.html',
       chunks: ['newtab'],
     }),
     new HtmlWebpackPlugin({
       template: 'src/pages/Options/index.html',
-      filename: 'options.html',
+      filename: 'pages/options.html',
       chunks: ['options'],
     }),
     new HtmlWebpackPlugin({
       template: 'src/pages/Popup/index.html',
-      filename: 'popup.html',
+      filename: 'pages/popup.html',
       chunks: ['popup'],
     }),
     new HtmlWebpackPlugin({
       template: 'src/pages/Devtools/index.html',
-      filename: 'devtools.html',
+      filename: 'pages/devtools.html',
       chunks: ['devtools'],
     }),
     new HtmlWebpackPlugin({
       template: 'src/pages/Panel/index.html',
-      filename: 'panel.html',
+      filename: 'pages/panel.html',
       chunks: ['panel'],
     }),
   ].filter(Boolean),
@@ -150,23 +146,9 @@ const options = {
 
 if (env.NODE_ENV === 'development') {
   options.devServer = {
-    hot: true,
+    hot: false, // Disable Hot Module Replacement (HMR) for Chrome Extensions
     liveReload: false,
-    allowedHosts: 'all',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
-    client: {
-      webSocketTransport: 'ws',
-      webSocketURL: {
-        hostname: 'localhost',
-        protocol: 'wss',
-      },
-    },
-    webSocketServer: 'ws',
   };
-
-  options.devtool = 'cheap-module-source-map';
 } else {
   options.optimization = {
     minimize: true,

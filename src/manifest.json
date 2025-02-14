@@ -3,9 +3,9 @@
     "name": "AdFriend",
     "version": "1.0.0",
     "description": "AdFriend is a Chrome extension that intercepts and replaces ad elements on web pages with customizable, positive content widgets.",
-    "options_page": "options.html",
+    "options_page": "pages/options.html",
     "background": {
-        "service_worker": "background.bundle.js"
+        "service_worker": "js/background.bundle.js"
     },
     "permissions": [
         "storage",
@@ -18,15 +18,15 @@
         "http://*/*"
     ],
     "action": {
-        "default_popup": "popup.html",
-        "default_icon": "images/icon-64.png"
+        "default_popup": "pages/popup.html",
+        "default_icon": "assets/images/icon-64.png"
     },
     "chrome_url_overrides": {
-        "newtab": "newtab.html"
+        "newtab": "pages/newtab.html"
     },
     "icons": {
-        "64": "images/icon-64.png",
-        "96": "images/icon-96.png"
+        "64": "assets/images/icon-64.png",
+        "96": "assets/images/icon-96.png"
     },
     "content_scripts": [
         {
@@ -36,25 +36,26 @@
                 "<all_urls>"
             ],
             "js": [
-                "contentScript.bundle.js"
+                "js/contentScript.bundle.js"
             ],
             "css": [
-                "content.styles.css"
+                "assets/styles/content.styles.css"
             ],
             "run_at": "document_end"
         }
     ],
-    "devtools_page": "devtools.html",
+    "devtools_page": "pages/devtools.html",
     "content_security_policy": {
-        "extension_pages": "script-src 'self'; object-src 'self'",
-        "content_scripts": "script-src 'self' 'unsafe-inline' https://trustedsource.com; object-src 'none'"
+        "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' https://securepubads.g.doubleclick.net https://*.yahoo.com;",
+        "content_scripts": "script-src 'self' 'unsafe-inline' https://trustedsource.com https://cdn.jsdelivr.net; object-src 'none';"
     },
     "web_accessible_resources": [
         {
             "resources": [
-                "content.styles.css",
-                "images/*",
-                "filters/*"
+                "assets/styles/*",
+                "assets/images/*",
+                "assets/filters/*",
+                "js/*.js"
             ],
             "matches": [
                 "<all_urls>"
