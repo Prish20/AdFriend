@@ -6,7 +6,7 @@ import './index.css';
 const container = document.getElementById('app-container') as HTMLElement;
 const root = createRoot(container);
 root.render(
-  <React.StrictMode>
-    <Options title="Settings" />
-  </React.StrictMode>
+    <React.StrictMode>
+        <Options title="Settings" />
+    </React.StrictMode>
 );

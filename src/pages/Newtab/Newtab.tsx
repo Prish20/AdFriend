@@ -1,28 +1,29 @@
-import React from 'react';
-import logo from '../../assets/images/logo.svg';
-import './Newtab.css';
-import './Newtab.scss';
+import React, { useState } from "react";
 
-const Newtab = () => {
+const Options = () => {
+    const [customFilter, setCustomFilter] = useState("");
+
+    const saveFilter = () => {
+        chrome.storage.local.get({ filters: [] }, (data) => {
+            const updatedFilters = [...data.filters, customFilter];
+            chrome.storage.local.set({ filters: updatedFilters }, () => {
+                alert("Custom filter saved!");
+            });
+        });
+    };
+
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/pages/Newtab/Newtab.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React!
-                </a>
-                <h6>The color of this paragraph is defined using SASS.</h6>
-            </header>
+        <div>
+            <h1>AdFriend Options</h1>
+            <input
+                type="text"
+                value={customFilter}
+                onChange={(e) => setCustomFilter(e.target.value)}
+                placeholder="Add a custom filter"
+            />
+            <button onClick={saveFilter}>Save Filter</button>
         </div>
     );
 };
 
-export default Newtab;
+export default Options;

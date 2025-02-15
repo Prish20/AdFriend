@@ -1,25 +1,32 @@
 {
-    "manifest_version": 3,
+    "manifest_version": 2,
     "name": "AdFriend",
     "version": "1.0.0",
     "description": "AdFriend is a Chrome extension that intercepts and replaces ad elements on web pages with customizable, positive content widgets.",
-    "options_page": "pages/options.html",
+    "options_ui": {
+        "page": "pages/options.html",
+        "open_in_tab": true
+    },
     "background": {
-        "service_worker": "js/background.bundle.js"
+        "scripts": [
+            "js/background.bundle.js"
+        ],
+        "persistent": true
     },
     "permissions": [
+        "tabs",
+        "<all_urls>",
+        "webRequest",
+        "webRequestBlocking",
+        "webNavigation",
         "storage",
-        "activeTab",
-        "scripting",
-        "tabs"
+        "unlimitedStorage",
+        "contextMenus"
     ],
-    "host_permissions": [
-        "https://*/*",
-        "http://*/*"
-    ],
-    "action": {
+    "browser_action": {
         "default_popup": "pages/popup.html",
-        "default_icon": "assets/images/icon-64.png"
+        "default_icon": "assets/images/icon-64.png",
+        "default_title": "AdFriend"
     },
     "chrome_url_overrides": {
         "newtab": "pages/newtab.html"
@@ -32,8 +39,7 @@
         {
             "matches": [
                 "http://*/*",
-                "https://*/*",
-                "<all_urls>"
+                "https://*/*"
             ],
             "js": [
                 "js/contentScript.bundle.js"
@@ -44,22 +50,11 @@
             "run_at": "document_end"
         }
     ],
-    "devtools_page": "pages/devtools.html",
-    "content_security_policy": {
-        "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' https://securepubads.g.doubleclick.net https://*.yahoo.com;",
-        "content_scripts": "script-src 'self' 'unsafe-inline' https://trustedsource.com https://cdn.jsdelivr.net; object-src 'none';"
-    },
     "web_accessible_resources": [
-        {
-            "resources": [
-                "assets/styles/*",
-                "assets/images/*",
-                "assets/filters/*",
-                "js/*.js"
-            ],
-            "matches": [
-                "<all_urls>"
-            ]
-        }
-    ]
+        "assets/filters/*.txt",
+        "assets/images/*",
+        "assets/styles/*"
+    ],
+    "minimum_chrome_version": "49",
+    "content_security_policy": "script-src 'self'; object-src 'self';"
 }
